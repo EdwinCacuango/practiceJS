@@ -28,8 +28,8 @@ const vuelta2 = () => {
 
 const vuelta3 = () => {
   const fistFunctionV3 = setTimeout(() => {
-    console.log("Juan")
-    console.log("Mario")
+    console.log("Juan");
+    console.log("Mario");
   }, 0);
   console.log("Martin");
 };
@@ -40,11 +40,11 @@ const vuelta4 = () => {
   const secondFunctionV4 = setTimeout(() => console.log("Martin"), 15);
 };
 
-vuelta4()
+// vuelta4()
 
 // Ejercicio 2
 const cuentaAtras = (number) => {
-  if (number <0) return;
+  if (number < 0) return;
   console.log(number);
   return cuentaAtras(number - 1);
 };
@@ -60,3 +60,34 @@ const temporizador = (second) => {
   }, 1000);
 };
 // temporizador(10);
+
+// Ejericio 3
+const baseUrl = "https://api.github.com";
+
+const getDataFromGitHub = async () => {
+  const response = await fetch(`${baseUrl}/repositories`);
+  const jsonResponse = await response.json();
+  return jsonResponse;
+};
+
+const getOwnerName = async () => {
+  const repositories = await getDataFromGitHub();
+  const listOfNames = repositories.map((repo) => repo.owner.login);
+  console.log(listOfNames);
+};
+
+// getOwnerName();
+// getDataFromGitHub()
+
+const getReposByOwner = async () => {
+  const repositories = await getDataFromGitHub();
+
+  const firsRepositorie = repositories[0];
+  const propertyUbication = firsRepositorie.owner.repos_url;
+
+  const listOfRepos = await fetch(propertyUbication);
+  const response = await listOfRepos.json();
+  console.log(response);
+};
+
+getReposByOwner();
